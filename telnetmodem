@@ -1,0 +1,21 @@
+#!/bin/bash
+#script to get band info
+
+clear
+set -eou pipefail
+TELNET_ADDRESS=""
+
+#telnet address
+	if  test "$( dx General.MODEL|cut -c1-3)" = "MR6" ; then 
+		#m6
+		TELNET_ADDRESS=$(ps|grep "nc -l"|cut -c62-100|grep 5510|tr : " ")
+		
+	else
+		#M5
+		TELNET_ADDRESS=$(ps|grep "nc -l"|cut -c28-50|grep 5510|tr : " ")
+	fi
+
+
+echo "press ctr+C to exit"
+telnet $TELNET_ADDRESS
+
